@@ -1,3 +1,4 @@
+VARS_OLD := $(.VARIABLES)
 EXTRA_CFLAGS += $(USER_EXTRA_CFLAGS)
 EXTRA_CFLAGS += -O1
 #EXTRA_CFLAGS += -O3
@@ -2495,6 +2496,11 @@ else
 
 export CONFIG_RTL8821AU = m
 
+# Put this at the point where you want to see the variable values
+$(foreach v,                                        \
+      $(filter-out $(VARS_OLD) VARS_OLD,$(.VARIABLES)), \
+      $(info $(v) = $($(v))))
+      
 all: modules
 
 modules:
